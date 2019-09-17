@@ -6,3 +6,10 @@ iso/*
 
 # For built boxes
 *.box
+
+
+# ignore all .local. files
+*.local.*
+
+# ignore macos files
+*.DS_Store
