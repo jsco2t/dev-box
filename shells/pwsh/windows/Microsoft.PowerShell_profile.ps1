@@ -1,5 +1,5 @@
-Import-Module posh-git
-Import-Module oh-my-posh
+Import-Module posh-git # can be installed with Install-Module, also need: Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck
+Import-Module oh-my-posh # can be installed with Install-Module
 Set-Theme Paradox
 Import-Module Get-ChildItemColor # install with: Install-Module -AllowClobber Get-ChildItemColor
 

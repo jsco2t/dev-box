@@ -47,6 +47,7 @@
 
     // Add custom color schemes to this array
     "schemes": [
+      // from: https://github.com/dracula/windows-terminal
       {
         "background" : "#282A36",
         "black" : "#21222C",
@@ -67,7 +68,8 @@
         "red" : "#FF5555",
         "white" : "#F8F8F2",
         "yellow" : "#F1FA8C"
-      },  
+      }, 
+      // from: https://github.com/adstep/vscode-windows-terminal-theme/blob/master/profile.json 
       {
         "background" : "#232323",
         "black" : "#000000",
