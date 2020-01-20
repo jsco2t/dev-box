@@ -96,7 +96,7 @@ if ($PreventionMode -eq "KeyInput") {
 
     for ($i = 0; $i -lt $SleepDurationMinutes; $i++) {
         Start-Sleep 60
-        Write-Host "Sending keep-awake signal: $(Get-Date -Format u), coffee will stop in $(Get-CoffeeTimeLeft) minutes"
+        Write-Host "Sending caffeine now: $(Get-Date -Format u), coffee will stop in $(Get-CoffeeTimeLeft) minutes"
         $shell.sendKeys("{F15}")
         #$shell.sendKeys("{NUMLOCK}{NUMLOCK}")
         #$shell.sendKeys("^") # contrl
@@ -107,7 +107,7 @@ if ($PreventionMode -eq "KeyInput") {
         $SleepManager = Add-Type -MemberDefinition $SleepManagerMethodDefinition -Name 'SleepManager' -Namespace 'Win32' -PassThru
 
         for ($i = 0; $i -lt $SleepDurationMinutes; $i++) {
-            Write-Host "Coffee Mode [$($PreventionMode)] running: $(Get-Date -Format u), coffee will stop in $(Get-CoffeeTimeRemainingMinutes) minutes"
+            Write-Host "System caffeine provided by [$($PreventionMode)]: $(Get-Date -Format u), coffee will stop in $(Get-CoffeeTimeRemainingMinutes) minutes"
 
             #if ( ($i -eq 0) -or ($i % 5 -eq 0) ) {
                 if ($PreventionMode -eq "SystemPreventSleepAndLock") {
