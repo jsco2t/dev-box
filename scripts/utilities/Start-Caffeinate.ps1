@@ -1,14 +1,13 @@
 param(
-    [Parameter(Mandatory = $true)]
-    [ValidateNotNullOrEmpty()]
+    [Parameter(Mandatory = $false)]
+    [ValidateRange(2, 1440)]
     [int]
-    $SleepDurationMinutes = 120,
+    $SleepDurationMinutes = 480,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $false)]
     [ValidateSet("SystemPreventSleepAndLock", "SystemPreventLock", "SystemPreventSleep", "KeyInput")]
     [string]
-    $PreventionMode
-
+    $PreventionMode = "SystemPreventSleepAndLock"
 )
 
 $SleepManagerMethodDefinition = @'
@@ -28,20 +27,16 @@ public enum EXECUTION_STATE :uint
 //
 // SetExecutionState code
 //
-private static EXECUTION_STATE cachedExecState = EXECUTION_STATE.ES_USER_PRESENT; // default to a value that should not be used
-
 public static void PreventSleepAndLock()
 {
     //Console.WriteLine("Setting Sleep Manager Thread Execution State: Prevent Sleep and Lock");
     var execStateToSet = EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_AWAYMODE_REQUIRED | EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_SYSTEM_REQUIRED;
     var lastExecState = SetThreadExecutionState(execStateToSet);
     
-    if (lastExecState != cachedExecState)
+    if (lastExecState != execStateToSet)
     {
         Console.WriteLine($"[INFO: PreventSleepAndLock] Thread execution state was set to {execStateToSet}, prior execution state was: {lastExecState}");
-        cachedExecState = execStateToSet;
     }
-    
 }
 
 public static void PreventSleep()
@@ -50,10 +45,9 @@ public static void PreventSleep()
     var execStateToSet = EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_AWAYMODE_REQUIRED | EXECUTION_STATE.ES_SYSTEM_REQUIRED;
     var lastExecState = SetThreadExecutionState(execStateToSet);
 
-    if (lastExecState != cachedExecState)
+    if (lastExecState != execStateToSet)
     {
         Console.WriteLine($"[INFO: PreventSleep] Thread execution state was set to {execStateToSet}, prior execution state was: {lastExecState}");
-        cachedExecState = execStateToSet;
     }
 }
 
@@ -63,10 +57,9 @@ public static void PreventLock()
     var execStateToSet = EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_SYSTEM_REQUIRED;
     var lastExecState = SetThreadExecutionState(execStateToSet);
 
-    if (lastExecState != cachedExecState)
+    if (lastExecState != execStateToSet)
     {
         Console.WriteLine($"[INFO: PreventLock] Thread execution state was set to {execStateToSet}, prior execution state was: {lastExecState}");
-        cachedExecState = execStateToSet;
     }
 }
 
@@ -78,7 +71,6 @@ public static void ClearThreadExecutionState()
 
     // for clear - always log what's going on
     Console.WriteLine($"[INFO: ClearThreadExecutionState] Thread execution state was set to {execStateToSet}, prior execution state was: {lastExecState}");
-    cachedExecState = execStateToSet;
 }
 
 '@
