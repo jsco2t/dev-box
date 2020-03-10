@@ -18,3 +18,10 @@ $env:GIT_SSH="C:\WINDOWS\System32\OpenSSH\ssh.exe"
 #
 #  - One time, run: ssh-add
 #	When asked: provide passphrase for key
+
+#
+# Helper Functions
+#
+function Start-MM() {
+    docker run -it --rm --name micro-manage 680054776144.dkr.ecr.us-east-1.amazonaws.com/defi-apps-micro-manage:master-latest
+}
