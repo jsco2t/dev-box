@@ -28,10 +28,6 @@ $env:REQUESTS_CA_BUNDLE = "C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\Lib\
 #
 # Helper Functions
 #
-function Start-MM() {
-    docker run -it --rm --name micro-manage 680054776144.dkr.ecr.us-east-1.amazonaws.com/defi-apps-micro-manage:master-latest
-}
-
 function Set-ShellTitle() {
     param(
         [Parameter(Mandatory = $true)]
