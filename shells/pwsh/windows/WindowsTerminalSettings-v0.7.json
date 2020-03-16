@@ -27,7 +27,7 @@
             "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
             "hidden": false,
             "name": "PowerShell Core",
-            "fontFace": "Delugia Nerd Font",
+            "fontFace": "Cascadia Code PL",
             "colorScheme" : "code",
             "source": "Windows.Terminal.PowershellCore"
         },
@@ -68,8 +68,8 @@
         "red" : "#FF5555",
         "white" : "#F8F8F2",
         "yellow" : "#F1FA8C"
-      }, 
-      // from: https://github.com/adstep/vscode-windows-terminal-theme/blob/master/profile.json 
+      },
+      // from: https://github.com/adstep/vscode-windows-terminal-theme/blob/master/profile.json
       {
         "background" : "#232323",
         "black" : "#000000",
