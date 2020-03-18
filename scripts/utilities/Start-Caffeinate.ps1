@@ -7,7 +7,11 @@ param(
     [Parameter(Mandatory = $false)]
     [ValidateSet("SystemPreventSleepAndLock", "SystemPreventLock", "SystemPreventSleep", "KeyInput")]
     [string]
-    $PreventionMode = "SystemPreventSleepAndLock"
+    $PreventionMode = "SystemPreventSleepAndLock",
+
+    [Parameter(Mandatory = $false)]
+    [bool]
+    $UpdateWindowTitle = $true
 )
 
 $SleepManagerMethodDefinition = @'
@@ -32,7 +36,7 @@ public static void PreventSleepAndLock()
     //Console.WriteLine("Setting Sleep Manager Thread Execution State: Prevent Sleep and Lock");
     var execStateToSet = EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_AWAYMODE_REQUIRED | EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_SYSTEM_REQUIRED;
     var lastExecState = SetThreadExecutionState(execStateToSet);
-    
+
     if (lastExecState != execStateToSet)
     {
         Console.WriteLine($"[INFO: PreventSleepAndLock] Thread execution state was set to {execStateToSet}, prior execution state was: {lastExecState}");
@@ -83,6 +87,19 @@ function Get-CoffeeTimeRemainingMinutes() {
     return [int]$timeRemaining.TotalMinutes
 }
 
+function Set-WindowTitle() {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]
+        $title
+    )
+
+    if ($true -eq $UpdateWindowTitle) {
+        (Get-Host).ui.RawUI.WindowTitle = $title
+    }
+}
+
 if ($PreventionMode -eq "KeyInput") {
     $shell = New-Object -com "Wscript.Shell"
 
@@ -99,21 +116,25 @@ if ($PreventionMode -eq "KeyInput") {
         $SleepManager = Add-Type -MemberDefinition $SleepManagerMethodDefinition -Name 'SleepManager' -Namespace 'Win32' -PassThru
 
         for ($i = 0; $i -lt $SleepDurationMinutes; $i++) {
-            Write-Host "System caffeine provided by [$($PreventionMode)]: $(Get-Date -Format u), coffee will stop in $(Get-CoffeeTimeRemainingMinutes) minutes"
+            $timeRemaining = Get-CoffeeTimeRemainingMinutes
+
+            # log/update status
+            Write-Host "System caffeine provided by [$($PreventionMode)]: $(Get-Date -Format u), coffee will stop in $timeRemaining minutes"
+            Set-WindowTitle "coffee ends in: $($timeRemaining)min"
 
             #if ( ($i -eq 0) -or ($i % 5 -eq 0) ) {
                 if ($PreventionMode -eq "SystemPreventSleepAndLock") {
 
                     [Win32.SleepManager]::PreventSleepAndLock()
-        
+
                 } elseif ($PreventionMode -eq "SystemPreventLock") {
-        
+
                     [Win32.SleepManager]::PreventLock()
-                
+
                 } else {
-        
+
                     [Win32.SleepManager]::PreventSleep()
-        
+
                 }
             #}
 
