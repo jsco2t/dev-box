@@ -2,7 +2,7 @@ param(
     [Parameter(Mandatory = $false)]
     [ValidateRange(2, 1440)]
     [int]
-    $SleepDurationMinutes = 480,
+    $SleepDurationMinutes = 600,
 
     [Parameter(Mandatory = $false)]
     [ValidateSet("SystemPreventSleepAndLock", "SystemPreventLock", "SystemPreventSleep", "KeyInput")]
