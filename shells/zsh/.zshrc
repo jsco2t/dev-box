@@ -72,7 +72,9 @@ plugins=(
   kubectl
   vscode
   aws
-  osx
+  dotnet
+  node
+  npm
 )
 
 source $ZSH/oh-my-zsh.sh
