@@ -11,7 +11,11 @@ param(
 
     [Parameter(Mandatory = $false)]
     [bool]
-    $UpdateWindowTitle = $true
+    $UpdateWindowTitle = $true,
+
+    [Parameter(Mandatory = $false)]
+    [bool]
+    $NapAfterCoffee = $true
 )
 
 $SleepManagerMethodDefinition = @'
@@ -146,6 +150,11 @@ if ($PreventionMode -eq "KeyInput") {
         if ($null -ne $SleepManager) {
             [Win32.SleepManager]::ClearThreadExecutionState();
         }
+
+        if ($true -eq $NapAfterCoffee) {
+            .\Start-NapTime.ps1 -DurationBeforeNapping 5
+        }
+
         Write-Host "exiting"
     }
 
