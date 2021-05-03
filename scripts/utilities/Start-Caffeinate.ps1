@@ -1,3 +1,4 @@
+# alt name: coffeetime
 param(
     [Parameter(Mandatory = $false)]
     [ValidateRange(2, 1440)]
@@ -152,7 +153,10 @@ if ($PreventionMode -eq "KeyInput") {
         }
 
         if ($true -eq $NapAfterCoffee) {
-            .\Start-NapTime.ps1 -DurationBeforeNapping 5
+            #.\Start-NapTime.ps1 -DurationBeforeNapping 5
+            #Start-Process ./Start-NapTime.ps1 -ArgumentList @("-DurationBeforeNapping 2") -NoNewWindow
+            $currentDir = (Get-Location).Path
+            Start-Process pwsh -ArgumentList @("-c .\Start-NapTime.ps1 -DurationBeforeNapping 2") -NoNewWindow -Wait -WorkingDirectory $currentDir
         }
 
         Write-Host "exiting"

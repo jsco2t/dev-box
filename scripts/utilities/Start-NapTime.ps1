@@ -46,12 +46,12 @@ try {
     if (0 -le $(Get-TimeRemainingMinutes)) {
         Write-Host "Starting a nap with: $SleepMode"
         if ($SleepMode -eq 'Sleep') {
-            Start-Process "$env:windir\System32\rundll32.exe"  -ArgumentList @("powrprof.dll","SetSuspendState Standby")
+            #Start-Process "$env:windir\System32\rundll32.exe"  -ArgumentList @("powrprof.dll","SetSuspendState Standby")
         } else {
-            Start-Process "$env:windir\System32\rundll32.exe"  -ArgumentList @("powrprof.dll","SetSuspendState Hibernate")
+            #Start-Process "$env:windir\System32\rundll32.exe"  -ArgumentList @("powrprof.dll","SetSuspendState Hibernate")
         }
     }
-    
+
 } finally {
     Write-Host "exiting"
 }
