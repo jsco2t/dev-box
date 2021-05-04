@@ -15,6 +15,7 @@ using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
+using System.Runtime.InteropServices;
 
 // public static void Main(string inputOne, string inputTwo)
 // {
@@ -44,6 +45,50 @@ rootCommand.Handler = CommandHandler.Create<int, bool, FileInfo>((intOption, boo
     Console.WriteLine($"The value for --bool-option is: {boolOption}");
     Console.WriteLine($"The value for --file-option is: {fileOption?.FullName ?? "null"}");
 });
+
+// [DllImport("user32.dll")]
+// static extern IntPtr GetForegroundWindow();
+
+// [DllImport("user32.dll")]
+// static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+
+// private string GetActiveWindowTitle()
+// {
+//     const int nChars = 256;
+//     StringBuilder Buff = new StringBuilder(nChars);
+//     IntPtr handle = GetForegroundWindow();
+
+//     if (GetWindowText(handle, Buff, nChars) > 0)
+//     {
+//         return Buff.ToString();
+//     }
+//     return null;
+// }
+
+[DllImport("kernel32.dll", CharSet = CharSet.Unicode,
+        CallingConvention = CallingConvention.StdCall)]
+//[DllImport("libkernel32.dll", CharSet = CharSet.Unicode)]
+static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
+
+[FlagsAttribute]
+public enum EXECUTION_STATE :uint
+{
+    ES_AWAYMODE_REQUIRED = 0x00000040,
+    ES_CONTINUOUS = 0x80000000,
+    ES_DISPLAY_REQUIRED = 0x00000002,
+    ES_SYSTEM_REQUIRED = 0x00000001,
+    ES_USER_PRESENT = 0x00000004 // NOT SUPPORTED ANY LONGER
+}
+
+Console.Title = "Hello";
+
+var execStateToSet = EXECUTION_STATE.ES_CONTINUOUS;
+var lastExecState = SetThreadExecutionState(execStateToSet);
+
+Console.WriteLine(lastExecState);
+
+//Console.WriteLine(GetActiveWindowTitle());
+
 
 // Parse the incoming args and invoke the handler
 return rootCommand.InvokeAsync(Args.ToArray()).Result;
