@@ -200,6 +200,7 @@ Console.CancelKeyPress += new ConsoleCancelEventHandler(ConsoleCancelHandler);
 if (timeAwake > 0)
 {
     var endTime = DateTime.Now.AddMinutes(timeAwake);
+    Console.WriteLine($"[INFO] CoffeeTime will be over at: {endTime.ToShortTimeString()}");
 
     if (setAwake)
     {
@@ -230,6 +231,8 @@ if (timeAwake > 0)
         else if (delayBeforeSleep > 0)
         {
             endTime = DateTime.Now.AddMinutes(delayBeforeSleep);
+            Console.WriteLine($"[INFO] System will sleep at: {endTime.ToShortTimeString()}");
+
             while (DateTime.Now < endTime)
             {
                 var timeLeft = (endTime - DateTime.Now).TotalMinutes;
