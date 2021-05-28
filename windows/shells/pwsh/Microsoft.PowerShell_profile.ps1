@@ -24,6 +24,8 @@ $env:GIT_SSH="C:\WINDOWS\System32\OpenSSH\ssh.exe"
 #
 $env:HOME = $env:USERPROFILE
 $env:REQUESTS_CA_BUNDLE = "C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\Lib\site-packages\certifi\cacert.pem"
+$ENV:PATH="$ENV:PATH;$env:HOME\bin"
+$env:GITLAB_TOKEN='ZZZZZZZZZZZZZZZZZZ'
 
 #
 # Helper Functions
@@ -35,6 +37,6 @@ function Set-ShellTitle() {
         [string]
         $title
     )
-    $ThemeSettings.Options.ConsoleTitle = $false
+    $ThemeSettings.Options.ConsoleTitle = $false # requires version 2.0.4+ of oh-my-posh
     (Get-Host).ui.RawUI.WindowTitle = $title
 }
