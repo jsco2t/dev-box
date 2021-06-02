@@ -1,0 +1,14 @@
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[directory]
+truncation_length = 100
+truncate_to_repo = true
+#style = "yellow"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[aws]
+format = '\[AWS: [$profile/($region)]($style)\]'
+symbol = ''
+style = 'bold white'
