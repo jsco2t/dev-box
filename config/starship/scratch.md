@@ -1,0 +1,1 @@
+https://www.codependentcodr.com/using-starship-for-terminal-prompt-goodness.htmls
