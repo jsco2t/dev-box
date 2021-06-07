@@ -1,14 +1,62 @@
+
+format = """
+${custom.tztime} \
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$kubernetes\
+$aws\
+$docker_context\
+$dotnet\
+$helm\
+$nodejs\
+$rust\
+$memory_usage\
+$cmd_duration\
+$line_break\
+$status\
+$shell\
+$character"""
+
 # Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
 
 [directory]
-truncation_length = 100
+truncation_length = 3
 truncate_to_repo = true
 #style = "yellow"
 format = "[$path]($style)[$read_only]($read_only_style) "
 
 [aws]
-format = '\[AWS: [$profile/($region)]($style)\]'
-symbol = ''
-style = 'bold white'
+format = '\[$symbol [($profile/)($region)]($style)\] '
+symbol = '🅰 '
+style = 'white'
+[aws.region_aliases]
+us-east-1 = "east-1"
+us-west-1 = "west-1"
+us-west-2 = 'west-2'
+
+[custom.tztime]
+command = 'date +" %b %d, %r"'
+when = "true"
+format = '[\[$symbol($output)\]](purple)'
+
+[cmd_duration]
+min_time = 1000
+format = '\(took [$duration]($style)\) '
+
+[kubernetes]
+disabled = false
+format = '\[[$symbol$context( \($namespace\))]($style)\] '
+style = 'white'
+
+# git config
+[git_branch]
+format = '➜ [$symbol$branch]($style) '
+
+[git_status]
+format = '([\($all_status$ahead_behind\)]($style) )'
+modified = '*'
