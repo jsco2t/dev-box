@@ -42,7 +42,8 @@ us-west-2 = 'west-2'
 [custom.tztime]
 command = 'date +" %b %d, %r"'
 when = "true"
-format = '[\[$symbol($output)\]](purple)'
+format = '[\[$symbol($output)\]]($style)'
+style = 'green'
 
 [cmd_duration]
 min_time = 1000
@@ -56,6 +57,7 @@ style = 'white'
 # git config
 [git_branch]
 format = '➜ [$symbol$branch]($style) '
+style = 'purple'
 
 [git_status]
 format = '([\($all_status$ahead_behind\)]($style) )'
