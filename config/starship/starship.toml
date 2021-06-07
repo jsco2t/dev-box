@@ -1,6 +1,6 @@
 
 format = """
-${custom.tztime} \
+$time \
 $directory\
 $git_branch\
 $git_commit\
@@ -26,13 +26,26 @@ disabled = true
 
 [directory]
 truncation_length = 3
-truncate_to_repo = true
+truncate_to_repo = false
 #style = "yellow"
 format = "[$path]($style)[$read_only]($read_only_style) "
+[directory.substitutions]
+"Developer/Sources/pickup" = "//"
+#"Developer/Sources/pickup" = "/ﲨ"
+#"Developer/Sources/personal" = "/"
+#"/mnt/c/Users/jason/Developer/Sources/personal" = "/"
+"Developer/Sources/personal" = "//"
+"/mnt/c/Users/jason/Developer/Sources" = ""
+"Developer/Sources" = ""
 
 [aws]
-format = '\[$symbol [($profile/)($region)]($style)\] '
-symbol = '🅰 '
+format = '\[$symbol[($profile/)($region)]($style)\] '
+#symbol = '🅰 '
+#symbol = '☁️'
+#symbol = 'Ⓐ '
+#symbol = '☁ '
+#symbol = ' '
+symbol = ' '
 style = 'white'
 [aws.region_aliases]
 us-east-1 = "east-1"
@@ -43,6 +56,11 @@ us-west-2 = 'west-2'
 command = 'date +" %b %d, %r"'
 when = "true"
 format = '[\[$symbol($output)\]]($style)'
+style = 'green'
+
+[time]
+disabled = false
+format = '[\[$time\]]($style)'
 style = 'green'
 
 [cmd_duration]
@@ -61,4 +79,8 @@ style = 'purple'
 
 [git_status]
 format = '([\($all_status$ahead_behind\)]($style) )'
-modified = '*'
+
+[dotnet]
+format = '[$symbol($version )]($style)'
+symbol = '.net '
+version_format = 'v${major}.${minor}'
