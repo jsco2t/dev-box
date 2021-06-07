@@ -20,6 +20,8 @@ $status\
 $shell\
 $character"""
 
+command_timeout = 2000 # might be too high, seeing issues with `git` timing out on work machine
+
 # Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
@@ -82,5 +84,5 @@ format = '([\($all_status$ahead_behind\)]($style) )'
 
 [dotnet]
 format = '[$symbol($version )]($style)'
-symbol = '.net '
-version_format = 'v${major}.${minor}'
+symbol = 'net'
+version_format = '${major}.${minor}'
