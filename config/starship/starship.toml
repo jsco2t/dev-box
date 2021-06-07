@@ -20,7 +20,7 @@ $status\
 $shell\
 $character"""
 
-command_timeout = 2000 # might be too high, seeing issues with `git` timing out on work machine
+#command_timeout = 1000 # might be too high, seeing issues with `git` timing out on work machine
 
 # Disable the package module, hiding it from the prompt completely
 [package]
