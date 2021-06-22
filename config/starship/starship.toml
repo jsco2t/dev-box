@@ -48,6 +48,7 @@ format = '\[$symbol[($profile/)($region)]($style)\] '
 #symbol = '☁ '
 #symbol = ' '
 symbol = ' '
+#symbol = ' '
 style = 'white'
 [aws.region_aliases]
 us-east-1 = "east-1"
@@ -89,3 +90,10 @@ disabled = true
 format = '[$symbol($version )]($style)'
 symbol = 'net'
 version_format = '${major}.${minor}'
+
+[nodejs]
+format = '[$symbol($version )]($style)'
+
+[rust]
+symbol = ' '
+format = '[$symbol($version )]($style)'
